@@ -134,10 +134,11 @@ const Page = () => {
             </div>
           </div>
         </div>
-        <div className="relative">
+
+        <div className="flex justify-center mt-12">
           <Link href="/project">
-          <button className="absolute bottom-4 right-4 px-4 py-2 md:px-6 md:py-3 text-lg md:text-xl lg:text-xl 4k:text-3xl bg-blue-500 text-white font-bold rounded hover:bg-[#0d1c9a] transition duration-300">
-          Read More
+            <button className="px-4 py-2 md:px-6 md:py-3 text-lg md:text-xl lg:text-xl 4k:text-3xl bg-blue-500 text-white font-bold rounded hover:bg-[#0d1c9a] transition duration-300">
+              Read More
             </button>
           </Link>
         </div>
@@ -208,8 +209,10 @@ const Page = () => {
                 specific requirements.
               </p>
             </div>
+          </div>
+          <div className="flex justify-center mt-12">
             <Link href="/services">
-              <button className="absolute bottom-4 right-4 px-4 py-2 md:px-6 md:py-3 text-lg md:text-xl lg:text-xl 4k:text-3xl bg-blue-500 text-white font-bold rounded hover:bg-[#0d1c9a] transition duration-300">
+              <button className="px-4 py-2 md:px-6 md:py-3 text-lg md:text-xl lg:text-xl 4k:text-3xl bg-blue-500 text-white font-bold rounded hover:bg-[#0d1c9a] transition duration-300">
                 Read More
               </button>
             </Link>
