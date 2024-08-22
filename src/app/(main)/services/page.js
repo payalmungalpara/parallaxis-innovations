@@ -12,17 +12,20 @@ const Header = () => (
 );
 
 const Card = ({ title, description, imageUrl }) => (
-  <div className="max-w-sm rounded overflow-hidden shadow-xl bg-white flex flex-col">
-    <img className="w-full h-64 object-cover" src={imageUrl} alt={title} />
-    <div className="px-6 py-4 flex-grow">
-      <div className="font-bold text-xl mb-2">{title}</div>
-      <p className="text-gray-700 text-sm">
-        {description}
-      </p>
+  <div className="flex flex-col items-center">
+    <div className="relative w-full max-w-lg sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl rounded-lg overflow-hidden shadow-xl bg-white">
+      <img className="w-full h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96 object-cover" src={imageUrl} alt={title} />
+      <div className="absolute bottom-0 left-0 p-4 bg-white bg-opacity-90 w-full">
+        <div className="font-bold text-lg sm:text-xl lg:text-2xl mb-2 text-black">
+          {title}
+        </div>
+        <p className="text-gray-700 text-xs sm:text-sm lg:text-base">
+          {description}
+        </p>
+      </div>
     </div>
   </div>
 );
-
 
 const CardGrid = () => {
   const cards = [
@@ -91,7 +94,7 @@ const CardGrid = () => {
   return (
     <>
       <Header />
-      <div className="bg-[#0d1c9a] p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 px-32">
+      <div className="bg-[#0d1c9a] p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 sm:px-5 lg:px-32">
         {cards.map((card, index) => (
           <Card
             key={index}
