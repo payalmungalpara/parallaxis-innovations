@@ -77,7 +77,11 @@ const Page = () => {
           {/* Image Section */}
           <div className="hidden lg:flex basis-[40%]">
             <div className="flex items-start pt-14 pl-20">
-              <img src={"about-us-avatar.png"} alt="About Us" />
+              <img
+                src={"about-us-avatar.png"}
+                alt="About Us"
+                className="opacity-40 filter drop-shadow-blue"
+              />
             </div>
           </div>
         </div>
@@ -132,8 +136,8 @@ const Page = () => {
         </div>
         <div className="relative">
           <Link href="/project">
-            <button className="absolute bottom-4 right-4 px-6 py-3 md:px-8 md:py-4 text-lg md:text-xl lg:text-2xl 4k:text-3xl bg-blue-500 text-white font-bold rounded hover:bg-[#0d1c9a] transition duration-300">
-              Read More
+          <button className="absolute bottom-4 right-4 px-4 py-2 md:px-6 md:py-3 text-lg md:text-xl lg:text-xl 4k:text-3xl bg-blue-500 text-white font-bold rounded hover:bg-[#0d1c9a] transition duration-300">
+          Read More
             </button>
           </Link>
         </div>
@@ -154,18 +158,19 @@ const Page = () => {
               Our Services
             </h2>
           </header>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 4k:px-16">
             <div className="flex flex-col items-center">
               <img
                 src="service-icon-1.png"
                 alt="Custom Software Development"
-                width={100}
-                height={80}
+                width={150}
+                height={120}
+                className="4k:w-[200px] 4k:h-[160px]"
               />
-              <h3 className="text-xl sm:text-2xl 4k:text-3xl font-bold mt-4">
+              <h3 className="text-xl sm:text-2xl 4k:text-5xl font-bold mt-4 justify-center">
                 Custom Software Development
               </h3>
-              <p className="text-gray-300 mt-4 px-4 sm:text-lg 4k:text-xl">
+              <p className="text-gray-300 mt-4 px-4 sm:text-lg 4k:text-8xl justify-center">
                 We provide expert consulting services to guide your digital
                 transformation journey and optimize your IT infrastructure.
               </p>
@@ -174,13 +179,14 @@ const Page = () => {
               <img
                 src="service-icon-2.png"
                 alt="Mobile Application Development"
-                width={100}
-                height={80}
+                width={150}
+                height={120}
+                className="4k:w-[200px] 4k:h-[160px]"
               />
-              <h3 className="text-xl sm:text-2xl 4k:text-3xl font-bold mt-4">
+              <h3 className="text-xl sm:text-2xl 4k:text-5xl font-bold mt-4 justify-center">
                 Mobile Application Development
               </h3>
-              <p className="text-gray-300 mt-4 px-4 sm:text-lg 4k:text-xl">
+              <p className="text-gray-300 mt-4 px-4 sm:text-lg 4k:text-8xl justify-center">
                 Our team excels in custom software development, creating
                 tailored solutions to meet your unique business needs.
               </p>
@@ -189,20 +195,21 @@ const Page = () => {
               <img
                 src="service-icon-3.png"
                 alt="Dedicated Software Developer Team"
-                width={100}
-                height={80}
+                width={150}
+                height={120}
+                className="4k:w-[200px] 4k:h-[160px]"
               />
-              <h3 className="text-xl sm:text-2xl 4k:text-3xl font-bold mt-4">
+              <h3 className="text-xl sm:text-2xl 4k:text-5xl font-bold mt-4 justify-center">
                 Dedicated Software Developer Team
               </h3>
-              <p className="text-gray-300 mt-4 px-4 sm:text-lg 4k:text-xl">
+              <p className="text-gray-300 mt-4 px-4 sm:text-lg 4k:text-8xl justify-center">
                 Our dedicated software developers team is committed to
                 delivering high-quality software solutions tailored to meet your
                 specific requirements.
               </p>
             </div>
             <Link href="/services">
-              <button className="absolute bottom-4 right-4 px-6 py-3 md:px-8 md:py-4 text-lg md:text-xl lg:text-2xl 4k:text-3xl bg-blue-500 text-white font-bold rounded hover:bg-[#0d1c9a] transition duration-300">
+              <button className="absolute bottom-4 right-4 px-4 py-2 md:px-6 md:py-3 text-lg md:text-xl lg:text-xl 4k:text-3xl bg-blue-500 text-white font-bold rounded hover:bg-[#0d1c9a] transition duration-300">
                 Read More
               </button>
             </Link>

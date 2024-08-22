@@ -1,72 +1,136 @@
 "use client";
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import { client, urlFor } from '../sanity';
 
-const ProjectItem = ({ imageUrl, title, description, link }) => (
-  <div className="bg-blue-50 rounded-lg shadow-md overflow-hidden mb-4">
-    <div className="md:flex">
-      <div className="w-full h-48 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] relative">
-        <img 
-          src={urlFor(imageUrl).url()} 
-          alt={title} 
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <div className="p-4 sm:p-6 lg:p-8 flex-grow">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-2">{title}</h2>
-        <p className="text-gray-600 text-sm sm:text-base lg:text-lg mb-4">{description}</p>
-        <Link href={link || '[id]'} passHref>
-          <button className="bg-blue-500 text-white px-3 py-2 sm:px-4 sm:py-2 lg:px-6 lg:py-3 rounded hover:bg-blue-600 transition">
-            Read More
-          </button>
-        </Link>
-      </div>
+const ProjectItemGrid = ({ imageUrl, title, description, link }) => (
+  <div className="project-item bg-[#0d1c9a] rounded-lg shadow-md p-4">
+    <Image src={imageUrl} alt={title} width={300} height={200} className="rounded-lg w-full h-48 object-cover" />
+    <h3 className="text-xl font-semibold mt-2">{title}</h3>
+    <p className="text-gray-600 mt-2 line-clamp-3">{description}</p>
+    <Link href={link} className="text-blue-600 hover:underline mt-2 inline-block">
+      Read More
+    </Link>
+  </div>
+);
+
+const ProjectItemList = ({ imageUrl, title, description, link }) => (
+  <div className="project-item bg-[#0d1c9a] rounded-lg shadow-md p-4 flex items-center">
+    <Image src={imageUrl} alt={title} width={100} height={100} className="rounded-lg w-24 h-24 object-cover mr-4" />
+    <div>
+      <h3 className="text-xl font-semibold">{title}</h3>
+      <p className="text-gray-600 mt-1 line-clamp-2">{description}</p>
+      <Link href={link} className="text-blue-600 hover:underline mt-1 inline-block">
+        Read More
+      </Link>
     </div>
   </div>
 );
 
-const Header = () => (
-  <div
-    className="bg-cover bg-center h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] xl:h-screen flex items-center justify-center"
-    style={{ backgroundImage: `url('/bg.png')` }}
-  >
-    <h1 className="text-white font-bold font-mono text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center">
-      Projects
-    </h1>
+const ViewToggle = ({ isGridView, setIsGridView }) => (
+  <div className="flex justify-end mb-4">
+    <button
+      className={`px-4 py-2 rounded-l-lg ${isGridView ? 'bg-blue-500 text-white' : 'bg-[#0d1c9a]'}`}
+      onClick={() => setIsGridView(true)}
+    >
+      Grid
+    </button>
+    <button
+      className={`px-4 py-2 rounded-r-lg ${!isGridView ? 'bg-blue-500 text-white' : 'bg-[#0d1c9a]'}`}
+      onClick={() => setIsGridView(false)}
+    >
+      List
+    </button>
   </div>
 );
 
 const Page = () => {
   const [projects, setProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isGridView, setIsGridView] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const data = await client.fetch(`
-        *[_type == "project"]{
-          title,
-          description,
-          imageUrl,
-          link
+      try {
+        setIsLoading(true);
+        const backendUrl = 'http://localhost:8000/projects';
+        console.log("Fetching projects from backend...");
+        const response = await fetch(backendUrl);
+        if (!response.ok) {
+          throw new Error('Failed to fetch projects from backend');
         }
-      `);
-      setProjects(data);
-    };
+        const data = await response.json();
 
+        // Log the entire data structure to understand it
+        console.log("Fetched data:", JSON.stringify(data, null, 2));
+
+        // Assuming data should be an array, or nested inside an object
+        if (Array.isArray(data)) {
+          setProjects(data);
+        } else if (data.projects && Array.isArray(data.projects)) {
+          setProjects(data.projects);
+        } else {
+          throw new Error('Fetched data is not an array or does not contain a projects array');
+        }
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
     fetchProjects();
   }, []);
-
+  
   return (
-    <div className="bg-[#0d1c9a] min-h-screen">
-      <Header />
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-32 py-8">
-        <div className="bg-blue-300 p-4 sm:p-6 lg:p-8 rounded-lg">
-          {projects.map((project, index) => (
-            <ProjectItem key={index} {...project} />
-          ))}
-        </div>
+    <div>
+      {/* Header */}
+      <div
+        className="bg-cover bg-center h-screen flex items-center justify-center relative"
+        style={{ backgroundImage: `url('/bg.png')` }}
+      >
+        <h1 className="relative text-white font-bold font-mono text-4xl sm:text-6xl 4k:text-8xl text-center">
+          Our Projects
+        </h1>
       </div>
+      
+      {isLoading && <div className="text-white text-center">Loading projects...</div>}
+      {error && <div className="text-red-500 text-center">Error: {error}</div>}
+      
+      {!isLoading && !error && (
+        <>
+          <ViewToggle isGridView={isGridView} setIsGridView={setIsGridView} />
+          
+          {isGridView ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {projects.map((project, index) => (
+                <ProjectItemGrid
+                  key={project.id || index}
+                  imageUrl={project.imageUrl}
+                  title={project.title}
+                  description={project.description}
+                  link={project.link}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {projects.map((project, index) => (
+                <ProjectItemList
+                  key={project.id || index}
+                  imageUrl={project.imageUrl}
+                  title={project.title}
+                  description={project.description}
+                  link={project.link}
+                />
+              ))}
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

@@ -69,7 +69,10 @@ const page = () => {
             {/* Image Section */}
             <div className="hidden lg:flex basis-[40%]">
               <div className="flex items-start pt-14 pl-0">
-                <img src={"about-us-avatar.png"} alt="About Us" />
+                <img src={"about-us-avatar.png"} 
+                alt="About Us" 
+                className="opacity-40 filter drop-shadow-blue"
+                />  
               </div>
             </div>
           </div>
